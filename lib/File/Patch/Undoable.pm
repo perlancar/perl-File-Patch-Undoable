@@ -7,7 +7,7 @@ use Log::Any '$log';
 
 use Builtin::Logged qw(system);
 use File::Temp qw(tempfile);
-use SHARYANTO::Proc::ChildError qw(explain_child_error);
+use Proc::ChildError qw(explain_child_error);
 
 # VERSION
 
