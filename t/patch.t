@@ -16,6 +16,11 @@ use File::Patch::Undoable;
 use Test::More 0.98;
 use Test::Perinci::Tx::Manager qw(test_tx_action);
 
+unless (File::Patch::Undoable::_check_patch_has_dry_run_option()) {
+    plan skip_all => "patch doesn't support --dry-run on this system";
+    goto DONE_TESTING;
+}
+
 my $tmpdir = tempdir(CLEANUP=>1);
 $CWD = $tmpdir;
 

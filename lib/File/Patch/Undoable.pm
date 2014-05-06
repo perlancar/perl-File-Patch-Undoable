@@ -6,12 +6,21 @@ use warnings;
 use Log::Any '$log';
 
 use Builtin::Logged qw(system);
+use Capture::Tiny qw(capture);
 use File::Temp qw(tempfile);
 use Proc::ChildError qw(explain_child_error);
 
 # VERSION
 
 our %SPEC;
+
+sub _check_patch_has_dry_run_option {
+    # some versions of the 'patch' program, like that on freebsd, does not
+    # support the needed --dry-run option. we currently can't run on those
+    # systems.
+    my (undef, undef, $exit) = capture { system "patch --dry-run -v" };
+    return $exit == 0;
+}
 
 $SPEC{patch} = {
     v           => 1.1,
@@ -77,6 +86,9 @@ sub patch {
     my $patch      = $args{patch};
     defined($patch) or return [400, "Please specify patch"];
     my $rev        = !!$args{reverse};
+
+    return [412, "The patch program does not support --dry-run option"]
+        unless _check_patch_has_dry_run_option();
 
     my $is_sym  = (-l $file);
     my @st      = stat($file);
@@ -145,6 +157,10 @@ sub patch {
 The B<patch> program has many nice features that L<Text::Patch> lacks, e.g.
 applying reverse patch (needed to check fixed state and to undo), autodetection
 of patch type, ignoring whitespace and fuzz factor, etc.
+
+
+=head1 KNOWN ISSUES
+
 
 
 =head1 SEE ALSO
