@@ -1,5 +1,14 @@
 Revision history for File-Patch-Undoable
 
+0.04    2014-05-28 (SHARYANTO)
+
+        - No functional changes.
+
+        - Test patch's --dry-run support via --help instead, because OpenBSD's
+          patch doesn't report non-zero exit status when given unknown options
+          [CT].
+
+
 0.03    2014-05-17 (SHARYANTO)
 
         - No functional changes.
