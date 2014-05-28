@@ -18,8 +18,23 @@ sub _check_patch_has_dry_run_option {
     # some versions of the 'patch' program, like that on freebsd, does not
     # support the needed --dry-run option. we currently can't run on those
     # systems.
-    my (undef, undef, $exit) = capture { system "patch --dry-run -v" };
-    return $exit == 0;
+
+    # this currently doesn't work on openbsd, since openbsd's patch does not
+    # exit non-zero if fed unknown options.
+    #my (undef, undef, $exit) = capture { system "patch --dry-run -v" };
+    #return $exit == 0;
+
+    # cache result
+    state $res = do {
+        # hm, what about windows?
+        #my $man = qx(man patch);
+        #$man =~ /--dry-run/;
+
+        my $help = qx(patch --help);
+        $help =~ /--dry-run/;
+    };
+
+    $res;
 }
 
 $SPEC{patch} = {
