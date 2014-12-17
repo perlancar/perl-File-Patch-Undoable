@@ -163,7 +163,7 @@ sub patch {
 }
 
 1;
-# ABSTRACT: Patch a file, with undo support
+# ABSTRACT:
 
 =head1 FAQ
 
