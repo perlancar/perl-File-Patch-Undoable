@@ -1,16 +1,17 @@
 package File::Patch::Undoable;
 
+# DATE
+# VERSION
+
 use 5.010001;
 use strict;
 use warnings;
-use Log::Any '$log';
+use Log::Any::IfLOG '$log';
 
 use Builtin::Logged qw(system);
 use Capture::Tiny qw(capture);
 use File::Temp qw(tempfile);
 use Proc::ChildError qw(explain_child_error);
-
-# VERSION
 
 our %SPEC;
 
