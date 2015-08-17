@@ -1,5 +1,12 @@
 Revision history for File-Patch-Undoable
 
+0.05    2015-08-17 (PERLANCAR)
+
+	- No functional changes.
+
+	- Switch from Log::Any to Log::Any::IfLOG.
+
+
 0.04    2014-05-28 (SHARYANTO)
 
         - No functional changes.
