@@ -10,7 +10,7 @@ use FindBin '$Bin';
 use File::chdir;
 use File::Copy;
 use File::Path qw(remove_tree);
-use File::Slurp::Tiny qw(read_file);
+use File::Slurper qw(read_text);
 use File::Temp qw(tempdir);
 use File::Patch::Undoable;
 use Test::More 0.98;
@@ -119,10 +119,10 @@ test_tx_action(
         copy "$Bin/data/file.u.patch", "p";
     },
     after_do      => sub {
-        is(~~read_file("f"), ~~read_file("$Bin/data/file.new"), "f patched");
+        is(scalar(read_text("f")), scalar(read_text("$Bin/data/file.new")), "f patched");
     },
     after_undo    => sub {
-        is(~~read_file("f"), ~~read_file("$Bin/data/file.old"), "f restored");
+        is(scalar(read_text("f")), scalar(read_text("$Bin/data/file.old")), "f restored");
     },
 );
 
@@ -137,10 +137,10 @@ test_tx_action(
         copy "$Bin/data/file.c.patch", "p";
     },
     after_do      => sub {
-        is(~~read_file("f"), ~~read_file("$Bin/data/file.old"), "f patched");
+        is(scalar(read_text("f")), scalar(read_text("$Bin/data/file.old")), "f patched");
     },
     after_undo    => sub {
-        is(~~read_file("f"), ~~read_file("$Bin/data/file.new"), "f restored");
+        is(scalar(read_text("f")), scalar(read_text("$Bin/data/file.new")), "f restored");
     },
 );
 
