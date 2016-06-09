@@ -8,9 +8,9 @@ use strict;
 use warnings;
 use Log::Any::IfLOG '$log';
 
-use Builtin::Logged qw(system);
 use Capture::Tiny qw(capture);
 use File::Temp qw(tempfile);
+use IPC::System::Options 'system', -log=>1;
 use Proc::ChildError qw(explain_child_error);
 
 our %SPEC;
