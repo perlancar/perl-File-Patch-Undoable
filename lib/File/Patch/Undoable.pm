@@ -47,7 +47,7 @@ On do, will patch file with the supplied patch. On undo, will apply the reverse
 of the patch.
 
 Note: Symlink is currently not permitted (except for the patch file). Patching
-is currently done with the `patch` program.
+is currently done with the <prog:patch> program.
 
 Unfixable state: file does not exist or not a regular file (directory and
 symlink included), patch file does not exist or not a regular file (but symlink
